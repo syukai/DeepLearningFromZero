@@ -30,10 +30,6 @@ def predict(network, x):
     return y
 
 
-# def img_show(img):
-#     pil_img = Image.fromarray(np.uint8(img))
-#     pil_img.show()
-
 x, t = get_data()
 network = init_network()
 
