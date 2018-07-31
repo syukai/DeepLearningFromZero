@@ -1,7 +1,7 @@
 # 2乗和誤差
 import numpy as np
-def mean_squared_error(y, t):
-    return 0.5 * np.sum((y-t)**2)
+def mean_squared_error(y_, t_):
+    return 0.5 * np.sum((y_-t_)**2)
 
 # 「2」を正解とする
 t = [0, 0, 1, 0, 0, 0, 0, 0, 0, 0]
