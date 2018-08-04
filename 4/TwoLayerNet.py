@@ -4,12 +4,17 @@ from common.functions import *
 from common.gradient import numerical_gradient
 
 class TwoLayerNet:
+    """
+    input_size:入力層のニューロンの数
+    hidden_size:隠れ層のニューロンの数
+    output_size:出力層のニューロンの数
+    """
     def __init__(self, input_size, hidden_size, output_size, weight_init_std=0.01):
         #重みの初期化
         self.params={}
         self.params['W1'] = weight_init_std * np.random.randn(input_size, hidden_size)
         self.params['b1'] = np.zeros(hidden_size)
-        self.params['W2'] = weight_init_std * np.random.randn(input_size, hidden_size)
+        self.params['W2'] = weight_init_std * np.random.randn(hidden_size, output_size)
         self.params['b2'] = np.zeros(output_size)
 
     def predict(self, x):
@@ -38,8 +43,12 @@ class TwoLayerNet:
     def numerical_gradient(self, x, t):
         loss_W = lambda W: self.loss(x, t)
         grads = {}
+        print("start numerical_gradient W1")
         grads['W1'] = numerical_gradient(loss_W, self.params['W1'])
+        print("start numerical_gradient b1")
         grads['b1'] = numerical_gradient(loss_W, self.params['b1'])
+        print("start numerical_gradient W2")
         grads['W2'] = numerical_gradient(loss_W, self.params['W2'])
+        print("start numerical_gradient b2")
         grads['b2'] = numerical_gradient(loss_W, self.params['b2'])
         return grads
