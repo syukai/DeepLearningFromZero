@@ -1,3 +1,6 @@
+"""
+乗算レイヤ
+"""
 class MulLayer:
     def __init__(self):
         self.x = None
