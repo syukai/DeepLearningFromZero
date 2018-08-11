@@ -18,7 +18,7 @@ class TwoLayerNet:
         self.params['b2'] = np.zeros(output_size)
 
         self.layers = OrderedDict()  # レイヤーを順序付きディクショナリで保存する
-        self.layers['Affinel'] = Affine(self.params['W1'], self.params['b1'])
+        self.layers['Affine1'] = Affine(self.params['W1'], self.params['b1'])
         self.layers['Relu1'] = Relu()
         self.layers['Affine2'] = Affine(self.params['W2'], self.params['b2'])
         self.lastLayer = SoftmaxWithLoss()
@@ -51,7 +51,7 @@ class TwoLayerNet:
         grads['W1'] = numerical_gradient(loss_W, self.params['W1'])
         grads['b1'] = numerical_gradient(loss_W, self.params['b1'])
         grads['W2'] = numerical_gradient(loss_W, self.params['W2'])
-        grads['bw'] = numerical_gradient(loss_W, self.params['b2'])
+        grads['b2'] = numerical_gradient(loss_W, self.params['b2'])
         return grads
     
     """
