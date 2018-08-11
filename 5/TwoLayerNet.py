@@ -5,18 +5,19 @@ from common.layers import *
 from common.gradient import numerical_gradient
 from collections import OrderedDict
 
+
 """
 2層ネットワーク
 """
 class TwoLayerNet:
-    def __init__(self, input_size, hidden_size, output_size, weight_init_std = 0.01)
+    def __init__(self, input_size, hidden_size, output_size, weight_init_std = 0.01):
         self.params = {}
         self.params['W1'] = weight_init_std * np.random.randn(input_size, hidden_size)
         self.params['b1'] = np.zeros(hidden_size)
         self.params['W2'] = weight_init_std * np.random.randn(hidden_size, output_size)
         self.params['b2'] = np.zeros(output_size)
 
-        self.layers = OrderdDict()
+        self.layers = OrderedDict()  # レイヤーを順序付きディクショナリで保存する
         self.layers['Affinel'] = Affine(self.params['W1'], self.params['b1'])
         self.layers['Relu1'] = Relu()
         self.layers['Affine2'] = Affine(self.params['W2'], self.params['b2'])
@@ -40,6 +41,9 @@ class TwoLayerNet:
         accuracy = np.sum(y == t)
         return accuracy
     
+    """
+    数値微分
+    """
     def numerical_gradient(self, x, t):
         loss_W = lambda W: self.loss(x, t)
 
@@ -50,6 +54,9 @@ class TwoLayerNet:
         grads['bw'] = numerical_gradient(loss_W, self.params['b2'])
         return grads
     
+    """
+    逆伝播による微分
+    """
     def gradient(self, x, t):
         # forward
         self.loss(x, t)
@@ -69,4 +76,3 @@ class TwoLayerNet:
         grads['W2'] = self.layers['Affine2'].dW
         grads['b2'] = self.layers['Affine2'].db
         return grads
-        
